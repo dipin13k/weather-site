@@ -1,2 +1,5 @@
-# weather-site
-testing my weather site
+# Weather site
+
+
+
+View the live site: https://dipin13k.github.io/weather-site/
