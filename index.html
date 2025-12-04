@@ -18,6 +18,7 @@
       height: 100%;
       width: 100%;
       overflow-x: hidden;
+      overflow-y: auto;
     }
 
     body {
@@ -25,24 +26,27 @@
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       min-height: 100vh;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
       padding: 20px;
       position: relative;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
     }
 
     /* GitHub Pages fix - ensure full height */
     #app-container {
       width: 100%;
-      height: 100vh;
+      max-width: 1200px;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 20px;
+      gap: 30px;
+      min-height: auto;
+      padding: 20px 0;
     }
 
-    /* Dynamic weather background */
+    /* Dynamic weather background with animations */
     .weather-bg {
       position: fixed;
       top: 0;
@@ -50,26 +54,146 @@
       width: 100%;
       height: 100%;
       z-index: -1;
-      transition: all 1s ease;
+      transition: all 1.5s ease;
     }
 
+    /* Sunny Weather Animation */
     .sunny-bg {
       background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      animation: sunnyPulse 4s ease-in-out infinite;
     }
 
+    @keyframes sunnyPulse {
+      0%, 100% { 
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        filter: brightness(1);
+      }
+      50% { 
+        background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
+        filter: brightness(1.1);
+      }
+    }
+
+    /* Cloudy Weather Animation */
     .cloudy-bg {
       background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      animation: cloudyMove 8s ease-in-out infinite;
     }
 
+    @keyframes cloudyMove {
+      0%, 100% { 
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        filter: brightness(1);
+      }
+      50% { 
+        background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+        filter: brightness(0.9);
+      }
+    }
+
+    /* Rainy Weather Animation */
     .rainy-bg {
       background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+      animation: rainyDrop 3s ease-in-out infinite;
     }
 
+    @keyframes rainyDrop {
+      0%, 100% { 
+        background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        filter: brightness(1);
+      }
+      50% { 
+        background: linear-gradient(135deg, #38f9d7 0%, #43e97b 100%);
+        filter: brightness(0.85);
+      }
+    }
+
+    /* Night Weather Animation */
     .night-bg {
       background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+      animation: nightTwinkle 5s ease-in-out infinite;
     }
 
-    /* Animated particles */
+    @keyframes nightTwinkle {
+      0%, 100% { 
+        background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+        filter: brightness(1);
+      }
+      50% { 
+        background: linear-gradient(135deg, #0f0c29 0%, #24243e 50%, #302b63 100%);
+        filter: brightness(1.1);
+      }
+    }
+
+    /* Snow Weather Animation */
+    .snowy-bg {
+      background: linear-gradient(135deg, #e6e9f0 0%, #eef1f5 100%);
+      animation: snowyFall 4s ease-in-out infinite;
+    }
+
+    @keyframes snowyFall {
+      0%, 100% { 
+        background: linear-gradient(135deg, #e6e9f0 0%, #eef1f5 100%);
+        filter: brightness(1);
+      }
+      50% { 
+        background: linear-gradient(135deg, #eef1f5 0%, #e6e9f0 100%);
+        filter: brightness(1.05);
+      }
+    }
+
+    /* Thunderstorm Weather Animation */
+    .thunderstorm-bg {
+      background: linear-gradient(135deg, #232526 0%, #414345 100%);
+      animation: thunderFlash 2s ease-in-out infinite;
+    }
+
+    @keyframes thunderFlash {
+      0%, 90%, 100% { 
+        background: linear-gradient(135deg, #232526 0%, #414345 100%);
+        filter: brightness(0.7);
+      }
+      95% { 
+        background: linear-gradient(135deg, #ffffff 0%, #414345 100%);
+        filter: brightness(1.3);
+      }
+    }
+
+    /* Drizzle Weather Animation */
+    .drizzle-bg {
+      background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+      animation: drizzleWave 3s ease-in-out infinite;
+    }
+
+    @keyframes drizzleWave {
+      0%, 100% { 
+        background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+        filter: brightness(1);
+      }
+      50% { 
+        background: linear-gradient(135deg, #66a6ff 0%, #89f7fe 100%);
+        filter: brightness(0.9);
+      }
+    }
+
+    /* Mist/Fog Weather Animation */
+    .mist-bg {
+      background: linear-gradient(135deg, #c3cfe2 0%, #c3cfe2 100%);
+      animation: mistDrift 6s ease-in-out infinite;
+    }
+
+    @keyframes mistDrift {
+      0%, 100% { 
+        background: linear-gradient(135deg, #c3cfe2 0%, #c3cfe2 100%);
+        filter: brightness(1) blur(0px);
+      }
+      50% { 
+        background: linear-gradient(135deg, #c3cfe2 0%, #a8b8d8 100%);
+        filter: brightness(0.95) blur(1px);
+      }
+    }
+
+    /* Animated weather particles */
     .particles {
       position: fixed;
       top: 0;
@@ -82,7 +206,6 @@
 
     .particle {
       position: absolute;
-      background: rgba(255, 255, 255, 0.8);
       border-radius: 50%;
       animation: float 15s infinite ease-in-out;
     }
@@ -94,23 +217,108 @@
       75% { transform: translateY(-30px) translateX(5px); }
     }
 
-    .main-container {
-      max-width: 1200px;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 30px;
-      animation: slideIn 0.8s ease-out;
+    /* Weather-specific particles */
+    .sunny-particle {
+      background: radial-gradient(circle, rgba(255, 223, 0, 0.8) 0%, rgba(255, 223, 0, 0) 70%);
+      box-shadow: 0 0 20px rgba(255, 223, 0, 0.6);
+      animation: sunGlow 3s ease-in-out infinite;
     }
 
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
+    @keyframes sunGlow {
+      0%, 100% { 
+        transform: scale(1) rotate(0deg);
+        opacity: 0.8;
       }
-      to {
+      50% { 
+        transform: scale(1.2) rotate(180deg);
         opacity: 1;
-        transform: translateY(0);
+      }
+    }
+
+    .cloudy-particle {
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+      animation: cloudDrift 10s infinite ease-in-out;
+    }
+
+    @keyframes cloudDrift {
+      0%, 100% { 
+        transform: translateX(0) translateY(0);
+        opacity: 0.7;
+      }
+      25% { 
+        transform: translateX(30px) translateY(-10px);
+        opacity: 0.9;
+      }
+      50% { 
+        transform: translateX(-20px) translateY(-5px);
+        opacity: 0.8;
+      }
+      75% { 
+        transform: translateX(15px) translateY(-15px);
+        opacity: 0.6;
+      }
+    }
+
+    .rainy-particle {
+      background: linear-gradient(180deg, rgba(52, 152, 219, 0.8) 0%, rgba(52, 152, 219, 0) 100%);
+      width: 2px;
+      height: 15px;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      animation: rainDrop 1s linear infinite;
+    }
+
+    @keyframes rainDrop {
+      0% { 
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% { 
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .snowy-particle {
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+      animation: snowFall 3s linear infinite;
+    }
+
+    @keyframes snowFall {
+      0% { 
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      100% { 
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0.8;
+      }
+    }
+
+    .thunder-particle {
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+      animation: lightning 4s ease-in-out infinite;
+    }
+
+    @keyframes lightning {
+      0%, 85%, 100% { 
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      90% { 
+        opacity: 1;
+        transform: scale(1.5);
       }
     }
 
@@ -123,6 +331,22 @@
       box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
       height: fit-content;
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+      animation: slideIn 0.8s ease-out;
+      flex-shrink: 0;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .app-header {
@@ -240,8 +464,13 @@
       box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
       min-height: 500px;
-      display: flex;
+      display: none;
       flex-direction: column;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      animation: slideIn 0.8s ease-out;
+      flex-shrink: 0;
     }
 
     .weather-header {
@@ -470,11 +699,6 @@
 
     /* Responsive Design */
     @media (max-width: 968px) {
-      .main-container {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-
       .weather-main {
         flex-direction: column;
         gap: 30px;
@@ -487,7 +711,7 @@
 
     @media (max-width: 600px) {
       #app-container {
-        padding: 10px;
+        padding: 10px 0;
       }
 
       .search-panel, .weather-display {
@@ -560,7 +784,7 @@
     </div>
 
     <!-- Weather Display -->
-    <div class="weather-display" id="weatherDisplay" style="display: none;">
+    <div class="weather-display" id="weatherDisplay">
       <div class="weather-header">
         <div class="location-name" id="locationName">--</div>
         <div class="location-country" id="locationCountry">--</div>
@@ -676,39 +900,129 @@
       });
     }
 
-    // Initialize particles
-    function createParticles() {
+    // Create weather-specific particles
+    function createWeatherParticles(weatherType) {
       const particlesContainer = document.getElementById('particles');
       particlesContainer.innerHTML = '';
       
-      for (let i = 0; i < 20; i++) {
+      let particleCount = 0;
+      let particleClass = '';
+      
+      switch(weatherType) {
+        case 'clear':
+          particleCount = 15;
+          particleClass = 'sunny-particle';
+          break;
+        case 'clouds':
+          particleCount = 20;
+          particleClass = 'cloudy-particle';
+          break;
+        case 'rain':
+        case 'drizzle':
+          particleCount = 50;
+          particleClass = 'rainy-particle';
+          break;
+        case 'snow':
+          particleCount = 40;
+          particleClass = 'snowy-particle';
+          break;
+        case 'thunderstorm':
+          particleCount = 10;
+          particleClass = 'thunder-particle';
+          break;
+        case 'mist':
+        case 'fog':
+        case 'haze':
+          particleCount = 25;
+          particleClass = 'cloudy-particle';
+          break;
+        default:
+          particleCount = 20;
+          particleClass = 'particle';
+      }
+      
+      for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.width = Math.random() * 6 + 2 + 'px';
-        particle.style.height = particle.style.width;
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.top = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 15 + 's';
-        particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+        particle.className = `particle ${particleClass}`;
+        
+        // Random positioning and sizing
+        if (weatherType === 'clear') {
+          particle.style.width = Math.random() * 30 + 20 + 'px';
+          particle.style.height = particle.style.width;
+          particle.style.left = Math.random() * 100 + '%';
+          particle.style.top = Math.random() * 100 + '%';
+          particle.style.animationDelay = Math.random() * 3 + 's';
+          particle.style.animationDuration = (Math.random() * 2 + 3) + 's';
+        } else if (weatherType === 'rain' || weatherType === 'drizzle') {
+          particle.style.left = Math.random() * 100 + '%';
+          particle.style.top = '-20px';
+          particle.style.animationDelay = Math.random() * 2 + 's';
+          particle.style.animationDuration = (Math.random() * 0.5 + 0.8) + 's';
+        } else if (weatherType === 'snow') {
+          particle.style.width = Math.random() * 8 + 4 + 'px';
+          particle.style.height = particle.style.width;
+          particle.style.left = Math.random() * 100 + '%';
+          particle.style.top = '-20px';
+          particle.style.animationDelay = Math.random() * 3 + 's';
+          particle.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        } else if (weatherType === 'thunderstorm') {
+          particle.style.width = Math.random() * 100 + 50 + 'px';
+          particle.style.height = '2px';
+          particle.style.left = Math.random() * 100 + '%';
+          particle.style.top = Math.random() * 100 + '%';
+          particle.style.animationDelay = Math.random() * 4 + 's';
+          particle.style.animationDuration = (Math.random() * 2 + 4) + 's';
+        } else {
+          particle.style.width = Math.random() * 6 + 2 + 'px';
+          particle.style.height = particle.style.width;
+          particle.style.left = Math.random() * 100 + '%';
+          particle.style.top = Math.random() * 100 + '%';
+          particle.style.animationDelay = Math.random() * 15 + 's';
+          particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+        }
+        
         particlesContainer.appendChild(particle);
       }
     }
 
-    // Update background based on weather
+    // Update background based on weather with animations
     function updateBackground(weather) {
       const bg = document.getElementById('weatherBg');
       const condition = weather.weather[0].main.toLowerCase();
+      const description = weather.weather[0].description.toLowerCase();
       
+      // Remove all weather classes
       bg.className = 'weather-bg';
       
-      if (condition.includes('clear') || condition.includes('sun')) {
+      // Add appropriate weather class and create particles
+      if (condition.includes('clear') || description.includes('clear') || description.includes('sun')) {
         bg.classList.add('sunny-bg');
+        createWeatherParticles('clear');
       } else if (condition.includes('cloud')) {
         bg.classList.add('cloudy-bg');
-      } else if (condition.includes('rain') || condition.includes('storm')) {
+        createWeatherParticles('clouds');
+      } else if (condition.includes('rain')) {
         bg.classList.add('rainy-bg');
-      } else if (condition.includes('night') || condition.includes('mist')) {
+        createWeatherParticles('rain');
+      } else if (condition.includes('snow')) {
+        bg.classList.add('snowy-bg');
+        createWeatherParticles('snow');
+      } else if (condition.includes('thunderstorm')) {
+        bg.classList.add('thunderstorm-bg');
+        createWeatherParticles('thunderstorm');
+      } else if (condition.includes('drizzle')) {
+        bg.classList.add('drizzle-bg');
+        createWeatherParticles('drizzle');
+      } else if (condition.includes('mist') || condition.includes('fog') || condition.includes('haze')) {
+        bg.classList.add('mist-bg');
+        createWeatherParticles('mist');
+      } else if (description.includes('night') || description.includes('night')) {
         bg.classList.add('night-bg');
+        createWeatherParticles('night');
+      } else {
+        // Default to cloudy for unknown conditions
+        bg.classList.add('cloudy-bg');
+        createWeatherParticles('clouds');
       }
     }
 
@@ -739,7 +1053,6 @@
         displayWeather(data);
         displayForecast(forecastData);
         updateBackground(data);
-        createParticles();
         
       } catch (error) {
         showError('Failed to fetch weather data. Please try again.');
@@ -755,7 +1068,7 @@
     // Display current weather
     function displayWeather(data) {
       hideLoading();
-      document.getElementById('weatherDisplay').style.display = 'block';
+      document.getElementById('weatherDisplay').style.display = 'flex';
       
       document.getElementById('locationName').textContent = data.name;
       document.getElementById('locationCountry').textContent = data.sys.country;
@@ -849,7 +1162,7 @@
     // Initialize on load
     window.addEventListener('load', () => {
       generateRandomCities();
-      createParticles();
+      createWeatherParticles('clear'); // Default particles
     });
   </script>
 </body>
